@@ -13,6 +13,7 @@
   LINE = 539883307;
 
   # Entertainment
+  Reeder = 1529445840;
   SteamLink = 1246969117;
 
   # Development
@@ -23,5 +24,4 @@
   Deliveries = 290986013;
   Flighty = 1358823008;
   HiCoffee = 1507361706;
-  Parcel = 639968404;
 }

@@ -8,15 +8,14 @@ let
     ls = "eza";
     cat = "bat";
     find = "fd";
+    tree = "eza --tree";
 
     # ls
     l = "ls -l";
     ll = "ls -la";
 
     # misc
-    e = "emacs";
     oo = "open .";
-    tree = "eza --tree";
     reload = "exec fish";
     inflate = ''ruby -r zlib -e "STDOUT.write Zlib::Inflate.inflate(STDIN.read)"'';
     dark = "osascript -e 'tell application \"System Events\" to tell appearance preferences to set dark mode to not dark mode'";
@@ -44,6 +43,8 @@ let
   };
 in
 {
+  # Merge abbreviations with aliases for non-fish shells
+  home.shellAliases = shellAliases // shellAbbrs;
   programs.atuin = {
     enable = true;
     flags = [ "--disable-up-arrow" ];
@@ -52,14 +53,6 @@ in
   programs.zoxide = {
     enable = true;
     options = [ "--cmd j" ];
-  };
-  programs.mise = {
-    enable = true;
-
-    globalConfig.tools = {
-      node = "lts";
-      usage = "latest";
-    };
   };
 
   programs.starship = {
@@ -78,7 +71,7 @@ in
         style = "bright-black";
       };
       git_status = {
-        format = "[[(*$conflicted$untracked$modified$staged$renamed$deleted)](bright-black)($ahead_behind$stashed)]($style) ";
+        format = "([[(*$conflicted$untracked$modified$staged$renamed$deleted)](bright-black)($ahead_behind$stashed)]($style) )";
         style = "cyan";
         conflicted = "​";
         untracked = "​";
@@ -100,14 +93,14 @@ in
   };
 
   programs.fish = {
-    inherit shellAliases shellAbbrs;
     enable = true;
+    inherit shellAbbrs;
 
     shellInit = ''
       # Set editor
       set -x EDITOR lvim
 
-      # Configure PNPM
+      # Set a PNPM home shared across versions
       set -gx PNPM_HOME "/Users/matchai/Library/pnpm"
       set -gx PATH "$PNPM_HOME" $PATH
 
@@ -141,13 +134,14 @@ in
     '';
 
     functions = {
+      tableplus = ''open -a TablePlus $argv'';
       idea = ''open -a "IntelliJ IDEA.app" $argv'';
+      code = ''if test (count $argv) -eq 0; command cursor (git rev-parse --show-toplevel 2>/dev/null || pwd); else; command cursor $argv[1]; end;'';
       fish_greeting = "";
     };
   };
 
   programs.zsh = {
-    inherit shellAliases;
     enable = true;
     autosuggestion.enable = true;
     enableCompletion = true;

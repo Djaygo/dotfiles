@@ -1,77 +1,65 @@
 [
   # macOS Must-Haves
-  "AppCleaner"
-  "bartender"
-  "flux"
-  "karabiner-elements"
-  "music-decoy"
+  "appcleaner"
+  "flux-app"
+  "jordanbaird-ice"
+  # Using Apple Music
+  # "music-decoy"
   "raycast"
   "yellowdot"
 
+  # Browsers
+  "arc"
+  "firefox"
+  "google-chrome"
+  "orion"
+  "thebrowsercompany-dia"
+
   # Communication
+  "beeper"
   "discord"
-  "zoom"
   "readdle-spark"
-  "slack"
-
-  # Personal
-  "1password"
-  "anki"
-  "automattic-texts"
-  "betterdisplay"
-  "cleanshot"
-  "coconutbattery"
-  "crossover"
-  "daisydisk"
-  "fantastical"
-  "imageoptim"
-  "jdownloader"
-  "keka"
-  "kekaexternalhelper"
-  "lm-studio"
-  "mullvadvpn"
-  "pingplotter"
-  "replacicon"
-  "zen-browser"
-
-  # Design
-  "adobe-creative-cloud"
-  "ogdesign-eagle"
-  "figma"
-
-  # Productivity
-  "deskpad"
-  "linear-linear"
-  "notion"
+  "zoom"
 
   # Entertainment
   "spotify"
   "steam"
   "stremio"
   "iina"
-  "league-of-legends"
 
-  # Browsers
-  "arc"
-  "google-chrome"
-  "firefox"
+  # Design
+  "ogdesign-eagle"
+  "figma"
 
   # Development
-  "android-studio"
+  "claude-code"
   "cursor"
   "cyberduck"
-  "get-api"
+  "dash"
   "ghostty"
-  "httpie"
-  "iterm2"
-  "lens"
   "orbstack"
   "tableplus"
   "visual-studio-code"
-  "windsurf"
   "yaak"
   "zed"
 
   # Fonts
   "font-fira-code-nerd-font"
+
+  # Personal
+  "1password"
+  "anki"
+  "betterdisplay"
+  "cleanshot"
+  "coconutbattery"
+  "daisydisk"
+  "fantastical"
+  "imageoptim"
+  "keka"
+  "kekaexternalhelper"
+  "mullvad-vpn"
+  "replacicon"
+
+  # Productivity
+  "notion"
 ]

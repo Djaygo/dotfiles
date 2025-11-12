@@ -1,8 +1,17 @@
-{ pkgs, lib, ... }:
+{ pkgs, lib, hostname, ... }:
+
+let
+  hostPackagesFile = ./packages/hosts/${hostname}/packages.nix;
+  hostPackages = if builtins.pathExists hostPackagesFile then import hostPackagesFile else [ ];
+
+  commonNpmPackages = import ./npm-packages.nix;
+  hostNpmPackagesFile = ./npm-packages/hosts/${hostname}/npm-packages.nix;
+  hostNpmPackages = if builtins.pathExists hostNpmPackagesFile then import hostNpmPackagesFile else [ ];
+in
 
 {
   home.packages = with pkgs; [
-    # CLIs
+    # CLIs but better
     bat # fancy version of `cat`
     fd # fancy version of `find`
     eza # fancy version of `ls`
@@ -12,43 +21,50 @@
     xh # fancy version of `httpie`
     yt-dlp # fancy version of `youtube-dl`
     mosh # fancy version of `ssh`
-    killport
+
+    # Productivity
+    ffmpeg
+
+    # Development
+    ast-grep
+    biome
     hexyl
+    hyperfine
+    graphite-cli
+    jujutsu
+    killport
 
     # macOS
     mas
     duti
 
-    # Workflow
-    _1password-cli
-    doctl
-
-    # Languages
-    php
-    php83Packages.composer
-
     # Nix related
-    nil
     nix-search-cli
-    nixfmt-rfc-style
 
     (pkgs.lunarvim.override {
       # Remove the vim background color, making it transparent
       globalConfig = "lvim.transparent_window = true";
     })
-  ];
+  ] ++ hostPackages;
 
   programs = {
     mise = {
       enable = true;
-      globalConfig.tools = {
-        node = "lts";
-        deno = "latest";
-        usage = "latest";
-        python = "latest";
-        rust = "latest";
-        ruby = "latest";
-        uv = "latest";
+      globalConfig = {
+        tools = {
+          node = "lts";
+          deno = "latest";
+          usage = "latest";
+          python = "latest";
+          rust = "latest";
+          uv = "latest";
+        };
+        settings = {
+          # Required for hooks to work
+          experimental = true;
+          idiomatic_version_file_enable_tools = [ "node" ];
+        };
+        hooks.postinstall = "npx corepack enable";
       };
     };
 
@@ -59,5 +75,5 @@
   };
 
   # Setup mise's default npm packages
-  home.file.".default-npm-packages".text = lib.strings.concatLines (import ./npm-packages.nix);
+  home.file.".default-npm-packages".text = lib.strings.concatLines (commonNpmPackages ++ hostNpmPackages);
 }

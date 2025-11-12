@@ -1,4 +1,3 @@
 [
-  "@antfu/ni"
   "vercel"
 ]
